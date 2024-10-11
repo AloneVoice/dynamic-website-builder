@@ -4,7 +4,7 @@
 
 ## 🚀 Features
 
-- **Dynamic Page Loading**: Uses AJAX and the History API to load content without full-page reloads, preserving a smooth user experience.
+- **Dynamic Page Loading**: Uses `fetch` API and the History API  to load content without full-page reloads, preserving a smooth user experience.
 - **Seamless Transitions**: Unique *"blinds"* transition effect between pages, offering a modern and engaging visual.
 - **Automatic Versioning**: Automatically appends version numbers to CSS and JS files based on the last modified date, ensuring users always load the latest versions without caching issues.
 - **Meta Tag Management**: Dynamically updates page titles, descriptions, and keywords for better SEO support.

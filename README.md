@@ -1,6 +1,6 @@
 # Dynamic Website Builder
 
-**A lightweight, flexible, and dynamic website building tool** that facilitates the rapid creation of websites. This project offers seamless transitions between pages, automated asset versioning, and dynamic content loading, making it an ideal solution for developers looking for a mini CMS or a foundation for their custom websites.
+**A lightweight, flexible, and dynamic website building tool** that facilitates the rapid creation of websites. This project offers seamless transitions between pages, automated asset versioning, and dynamic content loading, making it an ideal solution for developers looking for a foundation for their custom websites.
 
 ## 🚀 Features
 

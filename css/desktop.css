@@ -1,0 +1,45 @@
+.header {
+  grid-template-columns: 200px 1fr 0px;
+}
+.hamburger {
+  display: none;
+}
+.middle-box {
+  display: flex;
+  justify-content: center;
+}
+.top-nav {
+  display: flex;
+  position: unset;
+  margin-left: 0;
+  opacity: 1;
+  padding: 0;
+  flex-direction: row;
+  min-height: unset;
+  border-bottom: none;
+  border-right: none;
+  justify-content: center;
+  align-items: center;
+  max-width: unset;
+  width:100%;
+}
+.nav-inside {
+    display: flex;
+    width:100%;
+    justify-content: center;
+    padding:0;
+}
+.top-nav ul {
+  display: flex;
+  flex-direction: row;
+  width:100%;
+  justify-content: space-evenly;
+}
+.top-nav li {
+  margin-top: unset;
+  width: fit-content;
+  align-self: right;
+  text-align: center;
+  margin: 0 0.5rem;
+  transition: all 0.3s ease-in-out;
+}

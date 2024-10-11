@@ -23,9 +23,10 @@
 
 1. **Clone the repository**:
 
-```git clone https://github.com/yourusername/dynamic-website-builder.git```
-
-``` cd dynamic-website-builder```
+```bash
+git clone https://github.com/yourusername/dynamic-website-builder.git
+cd dynamic-website-builder
+```
 
 
 2. **Set up your server** to point to the `index.php` file (e.g., using Apache or Nginx).
@@ -34,37 +35,41 @@
 
 4. **Customize `basePath` in `main.js`** to match your installation path:
 
-``` const basePath = "/your/path/"; // Set this to match your site's root. ```
+```js
+const basePath = "/your/path/"; // Set this to match your site's root.
+```
 
 
 5. **Visit your site** in a browser, and enjoy smooth transitions and easy content management.
 
 ## 📄 Usage
 
-- **Adding a New Page**:
+### Adding a New Page:
 - Create a new PHP file in the `/pages` directory.
 - Define your page content inside the `.content` element.
 - Update the title and meta tags within the file.
 - The new page will be automatically picked up by the navigation menu.
 
-- **Custom CSS or JS for Each Page**:
+### Custom CSS or JS for Each Page:
 
 - Simply add a CSS or JS file in the `/css` or `/js` folders with the same name as the PHP file in the `/pages` directory.
 - Example: For `about.php`, add `about.css` in the `/css` folder or `about.js` in the `/js` folder.
 - `versions.php` will automatically detect and update the version based on the file modification date.
 
-- **Page Template Structure**:
+### Page Template Structure:
 
 Each page in the /pages folder should follow this minimal structure:
 
-```<!-- This is an example page, other pages should follow this structure -->```
-```<title>Page Title</title>```
-```<meta name="description" content="Page description goes here.">```
-```<meta name="keywords" content="keyword1, keyword2, keyword3">```
-```<div class="content">```
-    ```<h1>Page Heading</h1>```
-    ```<p>This is the content of the page. It will be dynamically loaded.</p>```
-```</div>```
+```html
+<!-- This is an example page, other pages should follow this structure -->
+<title>Page Title</title>
+<meta name="description" content="Page description goes here.">
+<meta name="keywords" content="keyword1, keyword2, keyword3">
+<div class="content">
+    <h1>Page Heading</h1>
+    <p>This is the content of the page. It will be dynamically loaded.</p>
+</div>
+```
 
 Note: There is no need for a full HTML structure (like <html>, <head>, or <body> tags). The template focuses on the content and metadata, which are automatically integrated into the main layout.
 

@@ -71,7 +71,7 @@ Each page in the /pages folder should follow this minimal structure:
 </div>
 ```
 
-Note: There is no need for a full HTML structure (like <html>, <head>, or <body> tags). The template focuses on the content and metadata, which are automatically integrated into the main layout.
+Note: There is no need for a full HTML structure (like `<html>`, `<head>`, or `<body>` tags). The template focuses on the content and metadata, which are automatically integrated into the main layout.
 
 ## 🎨 Customization
 

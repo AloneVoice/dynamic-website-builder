@@ -3,7 +3,7 @@
 <meta name="keywords" content="about us, company, team">
 <div class="content">
 <h1>Contact us</h1>
-    <form action="" method="POST" id="message_form">
+    <form action="" method="POST" id="message_form" novalidate>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name">
 

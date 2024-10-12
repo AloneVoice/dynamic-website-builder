@@ -1,1 +1,6 @@
+# Ignoruj folder vendor
+/vendor/
+
+# Ignoruj composer.phar
+/composer.phar
 

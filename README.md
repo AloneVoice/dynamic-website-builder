@@ -39,8 +39,32 @@ cd dynamic-website-builder
 const basePath = "/your/path/"; // Set this to match your site's root.
 ```
 
+5. **Install PHPMailer via Composer**:
 
-5. **Visit your site** in a browser, and enjoy smooth transitions and easy content management.
+To install PHPMailer, navigate to the root folder of your project and run the following command:
+```bash
+composer require phpmailer/phpmailer
+```
+
+6. **Place smtp_config.json outside of public_html**:
+
+For security reasons, the `smtp_config.json` file, which stores sensitive SMTP configuration data, should be placed outside the `public_html` directory (or any other publicly accessible directory).
+
+After moving the file, update the credentials in `smtp_config.json` (such as host, username, password, etc.).
+
+7. **Update paths in includes/send_message.php**:
+
+In the `includes/send_message.php` file, ensure that the correct paths are set for the `vendor/` directory (Composer's autoloader) and the `smtp_config.json` configuration file.
+
+Example of including the paths in `send_message.php`:
+
+```php
+require '/path/to/vendor/autoload.php'; // Correct path to the vendor directory
+$config = json_decode(file_get_contents('/path/to/smtp_config.json'), true); // Correct path to smtp_config.json
+
+```
+
+8. **Visit your site** in a browser, and enjoy smooth transitions and easy content management.
 
 ## 📄 Usage
 

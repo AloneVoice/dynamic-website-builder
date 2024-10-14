@@ -1,7 +1,7 @@
 :root { /* Używaj tylko hex z 6 znakowym rozwinięciem, skróty np #000 będą powodować błąd */
-  --base: #ff5e00;
+  --base: #94cced;
   --light-back: #ffffff;
-  --dark-back: #000000;
+  --dark-back: #444444;
   /* --base: #48b64a;
   --light-back: #d1e0e0;
   --dark-back: #0a2b53; */
@@ -258,7 +258,18 @@ button:hover {
     font-size:60px;
     color:var(--light-back);
     transform: rotate(45deg);
+    cursor:pointer;
 }
 .hide {
     display:none!important;
+}
+video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
 }

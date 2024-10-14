@@ -13,8 +13,8 @@
                     $pages = [
                         'home' => 'Home',
                         'about' => 'About',
-                        'kontakt' => 'Contact',
-                        'oferta' => 'Offer'
+                        'gallery' => 'Gallery',
+                        'contact' => 'Contact',
                     ];
 
                     // Ścieżka do folderu z podstronami

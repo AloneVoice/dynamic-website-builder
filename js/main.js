@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const blinds = document.querySelectorAll(".blind"); // Każdy pasek
 
   let versions = {};
-
+  
   // Przykład użycia: tworzymy zmienną --base-blur z 50% przezroczystości
   createBlurColor("--base", 0.9); // Tworzy --base-blur z przezroczystością 0.5
   createBlurColor("--light-back", 0.9); // Tworzy --base-blur z przezroczystością 0.5
@@ -155,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Odsłanianie żaluzji po załadowaniu treści
+    if (page != 'gallery')
     blinds.forEach((blind, index) => {
       setTimeout(() => {
         blind.classList.remove("show");

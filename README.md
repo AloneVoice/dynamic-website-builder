@@ -100,7 +100,8 @@ Note: There is no need for a full HTML structure (like `<html>`, `<head>`, or `<
 ## 🎨 Customization
 
 - Modify the **blinds effect** in `main.js` to adjust transition speed or create a different animation.
-- Adjust styles in `mobile.css` and `desktop.css` to customize the look and feel of your site for different devices.
+- Adjust styles in `mobile.css` and `desktop.css` to customize the look and feel of your site for different devices. Change colors in `:root` for fit to your project. 
+- To use gallery delete existing files in `/assets/gallery` and upload there your own images.
 - Extend the `versions.php` logic to include more asset types or additional data if needed.
 
 ## 🔗 Demo

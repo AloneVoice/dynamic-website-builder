@@ -61,6 +61,10 @@ $mainJsVersion = getFileVersion($mainJsPath);
         <div class="content"></div>
     </div>
     <?php include 'includes/footer.php'; ?>
+    <div id="messageAlert" class="hide">
+        <span class="close_x">+</span>
+        <h2></h2>
+    </div>
     <!-- Główny plik JavaScript -->
     <script src="js/main.js?ver=<?php echo $mainJsVersion; ?>"></script>
 </body>

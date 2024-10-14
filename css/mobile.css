@@ -1,7 +1,11 @@
-:root {
-  --main-color: #000;
-  --main-back: #fff;
-  --main-shadow: rgba(255, 255, 255, 0.9);
+:root { /* Używaj tylko hex z 6 znakowym rozwinięciem, skróty np #000 będą powodować błąd */
+  --base: #ff5e00;
+  --light-back: #ffffff;
+  --dark-back: #000000;
+  /* --base: #48b64a;
+  --light-back: #d1e0e0;
+  --dark-back: #0a2b53; */
+  /* Kolory -blur są tworzone za pomocą funkcji createBlurColor w main.js */
 }
 body {
   font-family: "Tahoma", sans-serif;
@@ -9,7 +13,7 @@ body {
 .header {
   display: grid;
   grid-template-columns: 1fr 180px 1fr;
-  background-color: var(--darkBack);
+  background-color: var(--dark-back);
   margin: 0;
   padding: 0.5rem 1rem;
   top: 0;
@@ -17,7 +21,7 @@ body {
   z-index: 2;
   transition: all 0.3s ease-in-out;
   height: 85px;
-  border-bottom: 2px solid var(--main-color);
+  border-bottom: 2px solid var(--dark-back);
 }
 .left-box {
   display: flex;
@@ -27,7 +31,7 @@ body {
 .left-box a {
   font-size: 45px;
   font-weight: bold;
-  color: var(--main-color);
+  color: var(--light-back);
   text-decoration: none;
 }
 .top-nav {
@@ -35,7 +39,7 @@ body {
   min-width: 255px;
   width: calc(100vw - 105px);
   max-width: 360px;
-  background-color: var(--main-shadow);
+  background-color: var(--dark-back-blur);
   min-height: 100dvh;
   height: auto;
   position: absolute;
@@ -44,13 +48,13 @@ body {
   margin-left: -100%;
   opacity: 0;
   transition: all 0.3s ease-in-out;
-  color: var(--main-color);
+  color: var(--base);
   text-align: right;
   font-size: 2rem;
   padding-left: 10px;
   justify-content: end;
-  border-bottom: 2px solid var(--main-color);
-  border-right: 1px solid var(--main-color);
+  border-bottom: 2px solid var(--dark-back);
+  border-right: 1px solid var(--dark-back);
   z-index: 2;
 }
 .nav-inside {
@@ -60,13 +64,14 @@ body {
   align-items: center;
 }
 .top-nav a {
-  color: var(--main-color);
+  color: var(--light-back);
   text-decoration: none;
   font-size: 32px;
 }
 .top-nav a.active {
   text-decoration: underline;
   text-underline-offset: 10px;
+  text-decoration-color: var(--base);
 }
 .top-nav li {
   margin: 1rem 0 1rem auto;
@@ -95,8 +100,8 @@ body {
   height: 8px;
   margin-left: auto;
   margin-top: 6px;
-  background-color: var(--main-color);
-  border: 1px solid var(--main-color);
+  background-color: var(--base);
+  /* border: 1px solid var(--dark-back); */
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
@@ -132,9 +137,11 @@ body {
   text-decoration: underline;
   line-height: 5rem;
   text-underline-offset: 10px;
+  color:var(--dark-back);
 }
 .content p {
   font-size: 18px;
+  color: var(--dark-back);
 }
 .footer {
   display: flex;
@@ -142,12 +149,12 @@ body {
   align-items: center;
   width: 100%;
   height: 85px;
-  background-color: var(--main-color);
+  background-color: var(--dark-back);
   position: fixed;
   bottom: 0;
 }
 .footer div {
-  color: var(--main-back);
+  color: var(--light-back);
 }
 .blinds {
   position: fixed;
@@ -169,8 +176,8 @@ body {
   transform-origin: left;
   transition: all 0.5s ease-in-out;
   backface-visibility: hidden;
-  background-color: var(--main-color);
-  border: 1px solid var(--main-color);
+  background-color: var(--base);
+  border: 1px solid var(--base);
 }
 
 .blind.show {
@@ -195,27 +202,32 @@ label {
     width:100%;
     font-size:24px;
     padding:10px 0;
+    color:var(--dark-back);
 }
 
 input, textarea {
     font-size:24px;
     padding:10px;
-    border:2px solid var(--main-color);
+    border:2px solid var(--dark-back);
     width:100%;
     outline:none;
+    color:var(--dark-back);
+}
+input:focus, textarea:focus {
+    border:2px solid var(--base);
 }
 
 button {
-    border:2px solid var(--main-color);
+    border:2px solid var(--dark-back);
     width:300px;
-    background-color: var(--main-color);
-    color:var(--main-back);
+    background-color: var(--dark-back);
+    color:var(--light-back);
     font-size:24px;
     padding:10px;
     margin:20px;
     transition: all .3s ease-in-out;
 }
 button:hover {
-    background-color: var(--main-back);
-    color:var(--main-color);
+    background-color: var(--light-back);
+    color:var(--dark-back);
 }

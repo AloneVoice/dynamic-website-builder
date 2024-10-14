@@ -4,9 +4,47 @@ document.addEventListener("DOMContentLoaded", function () {
   const bars = hamburger.querySelectorAll(".bar");
   const contentDiv = document.querySelector(".content");
   const basePath = "/template/"; // Zmienna bazowa - ustaw tutaj odpowiednią ścieżkę
-  const blinds = document.querySelectorAll('.blind'); // Każdy pasek
-  
+  const blinds = document.querySelectorAll(".blind"); // Każdy pasek
+
   let versions = {};
+
+  // Przykład użycia: tworzymy zmienną --base-blur z 50% przezroczystości
+  createBlurColor("--base", 0.9); // Tworzy --base-blur z przezroczystością 0.5
+  createBlurColor("--light-back", 0.9); // Tworzy --base-blur z przezroczystością 0.5
+  createBlurColor("--dark-back", 0.85); // Tworzy --base-blur z przezroczystością 0.5
+
+  function createBlurColor(variableName, opacity) {
+    // Odczytanie wartości zmiennej CSS z :root
+    const rootStyles = getComputedStyle(document.documentElement);
+    const baseColor = rootStyles.getPropertyValue(variableName).trim(); // np. #48b64a
+
+    // Sprawdzenie, czy zmienna ma poprawny format (powinna być #RRGGBB)
+    if (!/^#[0-9A-F]{6}$/i.test(baseColor)) {
+      throw new Error("Błędny format koloru. Wymagany format to #RRGGBB.");
+    }
+
+    // Konwersja koloru na wersję z przezroczystością
+    const blurColor = addOpacityToHexColor(baseColor, opacity);
+
+    // Ustawienie nowej zmiennej --<variableName>-blur w :root
+    const newVariableName = `${variableName}-blur`;
+    document.documentElement.style.setProperty(newVariableName, blurColor);
+  }
+
+  // Funkcja pomocnicza do konwersji koloru na heksadecymalny z przezroczystością
+  function addOpacityToHexColor(hexColor, opacity) {
+    hexColor = hexColor.replace("#", "");
+
+    const alphaHex = decimalToHex(opacity);
+    return `#${hexColor}${alphaHex}`;
+  }
+
+  // Funkcja pomocnicza do konwersji wartości opacity na hex
+  function decimalToHex(opacity) {
+    const decimalValue = Math.round(opacity * 255);
+    const hexValue = decimalValue.toString(16).padStart(2, "0");
+    return hexValue.toUpperCase();
+  }
 
   // Funkcja do pobierania wersji z versions.php
   async function fetchVersions() {
@@ -18,59 +56,59 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-// Funkcja do ładowania nowej strony z obsługą żaluzji
-async function loadPage(page) {
+  // Funkcja do ładowania nowej strony z obsługą żaluzji
+  async function loadPage(page) {
     let isFetching = true; // Flaga oznaczająca trwające pobieranie
     let fetchedData = null; // Przechowuje dane, jeśli pobieranie zakończy się przed zasłanianiem
 
     // Rozpocznij pobieranie i zasłanianie równocześnie
     startBlindsAnimation();
     fetchPageContent(page)
-        .then(data => {
-            isFetching = false;
-            fetchedData = data;
-            
-            // Jeśli zasłanianie już się zakończyło, od razu aktualizujemy treść i odsłaniamy
-            if (isBlindsAnimationFinished()) {
-                
-                updateContentAndReveal(fetchedData, page);
-            }
-        })
-        .catch(err => {
-            console.error("Error loading page:", err);
-            isFetching = false;
-            // Zwiń żaluzje w przypadku błędu
-            resetBlinds();
-            contentDiv.innerHTML = "<p>Error loading content. Please try again later.</p>";
-        });
+      .then((data) => {
+        isFetching = false;
+        fetchedData = data;
+
+        // Jeśli zasłanianie już się zakończyło, od razu aktualizujemy treść i odsłaniamy
+        if (isBlindsAnimationFinished()) {
+          updateContentAndReveal(fetchedData, page);
+        }
+      })
+      .catch((err) => {
+        console.error("Error loading page:", err);
+        isFetching = false;
+        // Zwiń żaluzje w przypadku błędu
+        resetBlinds();
+        contentDiv.innerHTML =
+          "<p>Error loading content. Please try again later.</p>";
+      });
 
     // Czekaj na zakończenie animacji zasłaniania
     setTimeout(() => {
-        if (!isFetching && fetchedData) {
-            // Jeśli pobieranie jest zakończone, aktualizuj treść i odsłaniaj
-            updateContentAndReveal(fetchedData, page);
-        }
+      if (!isFetching && fetchedData) {
+        // Jeśli pobieranie jest zakończone, aktualizuj treść i odsłaniaj
+        updateContentAndReveal(fetchedData, page);
+      }
     }, blinds.length * 20);
-}
+  }
 
-// Funkcja do uruchomienia animacji zasłaniania
-function startBlindsAnimation() {
+  // Funkcja do uruchomienia animacji zasłaniania
+  function startBlindsAnimation() {
     blinds.forEach((blind, index) => {
-        setTimeout(() => {
-            blind.classList.remove('hidden');
-            blind.classList.add('show'); // Obrót do widocznego stanu
-        }, index * 20);
+      setTimeout(() => {
+        blind.classList.remove("hidden");
+        blind.classList.add("show"); // Obrót do widocznego stanu
+      }, index * 20);
     });
-}
+  }
 
-// Funkcja do sprawdzenia, czy animacja żaluzji się zakończyła
-function isBlindsAnimationFinished() {
+  // Funkcja do sprawdzenia, czy animacja żaluzji się zakończyła
+  function isBlindsAnimationFinished() {
     const blindsArr = Array.from(blinds);
-    return blindsArr.every(blind => blind.classList.contains('show'));
-}
+    return blindsArr.every((blind) => blind.classList.contains("show"));
+  }
 
-// Funkcja do pobierania zawartości strony
-async function fetchPageContent(page) {
+  // Funkcja do pobierania zawartości strony
+  async function fetchPageContent(page) {
     const response = await fetch(`${basePath}pages/${page}.php`);
     const html = await response.text();
 
@@ -80,20 +118,28 @@ async function fetchPageContent(page) {
 
     // Wyciągnięcie zawartości i metadanych
     return {
-        newContent: doc.querySelector(".content").innerHTML,
-        newTitle: doc.querySelector("title").textContent,
-        newDescription: doc.querySelector('meta[name="description"]').getAttribute("content"),
-        newKeywords: doc.querySelector('meta[name="keywords"]').getAttribute("content")
+      newContent: doc.querySelector(".content").innerHTML,
+      newTitle: doc.querySelector("title").textContent,
+      newDescription: doc
+        .querySelector('meta[name="description"]')
+        .getAttribute("content"),
+      newKeywords: doc
+        .querySelector('meta[name="keywords"]')
+        .getAttribute("content"),
     };
-}
+  }
 
-// Funkcja do aktualizacji treści i odsłaniania
-function updateContentAndReveal(data, page) {
+  // Funkcja do aktualizacji treści i odsłaniania
+  function updateContentAndReveal(data, page) {
     // Podmiana zawartości, tytułu i metadanych
     contentDiv.innerHTML = data.newContent;
     document.title = data.newTitle;
-    document.querySelector('meta[name="description"]').setAttribute("content", data.newDescription);
-    document.querySelector('meta[name="keywords"]').setAttribute("content", data.newKeywords);
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute("content", data.newDescription);
+    document
+      .querySelector('meta[name="keywords"]')
+      .setAttribute("content", data.newKeywords);
 
     // Aktualizacja linków do CSS i JS
     updateAssets(page);
@@ -103,30 +149,29 @@ function updateContentAndReveal(data, page) {
 
     // Zaktualizuj aktywne linki w menu
     document.querySelectorAll("nav a").forEach((link) => {
-        const path = link.getAttribute('href');
-        if (path === page) link.classList.add('active');
-        else link.classList.remove('active');
+      const path = link.getAttribute("href");
+      if (path === page) link.classList.add("active");
+      else link.classList.remove("active");
     });
 
     // Odsłanianie żaluzji po załadowaniu treści
     blinds.forEach((blind, index) => {
-        setTimeout(() => {
-            blind.classList.remove('show');
-            blind.classList.add('hidden');
-        }, index * 20);
+      setTimeout(() => {
+        blind.classList.remove("show");
+        blind.classList.add("hidden");
+      }, index * 20);
     });
-}
+  }
 
-// Funkcja do zwijania żaluzji w przypadku błędu
-function resetBlinds() {
+  // Funkcja do zwijania żaluzji w przypadku błędu
+  function resetBlinds() {
     blinds.forEach((blind, index) => {
-        setTimeout(() => {
-            blind.classList.remove('show');
-            blind.classList.add('hidden');
-        }, index * 20);
+      setTimeout(() => {
+        blind.classList.remove("show");
+        blind.classList.add("hidden");
+      }, index * 20 + 100);
     });
-}
-
+  }
 
   // Funkcja do aktualizacji linków CSS i JS
   function updateAssets(page) {
@@ -195,11 +240,10 @@ function resetBlinds() {
     link.addEventListener("click", function (event) {
       event.preventDefault();
       const page = this.getAttribute("href");
-      if (!link.classList.contains('active')) {
-         loadPage(page);
-         slide()
+      if (!link.classList.contains("active")) {
+        loadPage(page);
+        slide();
       }
-     
     });
   });
 
@@ -214,6 +258,6 @@ function resetBlinds() {
   fetchVersions().then(determineInitialPage);
 
   hamburger.addEventListener("click", (e) => {
-      slide()
-  })
+    slide();
+  });
 });

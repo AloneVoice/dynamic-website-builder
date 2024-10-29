@@ -17,6 +17,23 @@ $mainJsPath = $jsDirectory . '/main.js';
 $mobileCssVersion = getFileVersion($mobileCssPath);
 $desktopCssVersion = getFileVersion($desktopCssPath);
 $mainJsVersion = getFileVersion($mainJsPath);
+
+require 'db.php';
+if ($_GET['token']) {
+$token = $_GET['token'] ?? '';
+
+if ($token) {
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE activation_token = ?");
+    $stmt->execute([$token]);
+    $user = $stmt->fetch();
+
+    if ($user) {
+        $updateStmt = $pdo->prepare("UPDATE users SET is_active = 1, activation_token = NULL WHERE id = ?");
+        $updateStmt->execute([$user['id']]);
+        setcookie("user_email", $user['email'], time() + 3600, "/"); // ważność: 1 godzina
+    }
+}
+}
 ?>
 <!DOCTYPE html>
 <html lang="pl">

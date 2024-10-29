@@ -15,6 +15,7 @@
                         'about' => 'About',
                         'gallery' => 'Gallery',
                         'contact' => 'Contact',
+                        'activate' => null
                     ];
 
                     // Ścieżka do folderu z podstronami
@@ -54,7 +55,7 @@
                     // Generujemy linki z mapowania $pages, które mają ustaloną kolejność
                     foreach ($pages as $pageName => $displayName) {
                         $filePath = $pagesDirectory . '/' . $pageName . '.php';
-                        if (file_exists($filePath)) {
+                        if (file_exists($filePath) && $displayName != null) {
                             echo '<li><a href="' . $pageName . '">' . $displayName . '</a></li>';
                         }
                     }

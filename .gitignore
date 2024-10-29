@@ -4,3 +4,5 @@
 # Ignoruj composer.phar
 /composer.phar
 
+db.php
+
